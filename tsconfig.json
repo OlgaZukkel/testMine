@@ -1,0 +1,62 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "alwaysStrict": false,
+    "noImplicitAny": false,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "src",
+    "checkJs": true,
+    "declaration": false,
+    "declarationMap": false,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "incremental": false,
+    "jsx": "react-jsxdev",
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
+    ],
+    "strict": false,
+    "outDir": "dist",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "skipLibCheck": true,
+    "sourceMap": false,
+    "target": "ESNext",
+    "resolveJsonModule": true,
+    "noUnusedLocals": false,
+    "paths": {
+      "@/*": [
+        "./*"
+      ],
+      "assets/*": [
+        "assets/*"
+      ],
+      "components/*": [
+        "components/*"
+      ],
+      "constants/*": [
+        "constants/*"
+      ],
+      "hooks/*": [
+        "hooks/*"
+      ],
+      "pages/*": [
+        "pages/*"
+      ],
+      "utils/*": [
+        "utils/*"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*",
+    "types/*",
+    "server.ts",
+    "prerender.cts",
+    "node_modules/vite/types/*",
+    "types.d.ts",
+    "vite-env.d.ts"
+  ]
+}
