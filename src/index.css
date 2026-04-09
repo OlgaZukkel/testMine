@@ -2,17 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
-
-html, body, #root {
-    width: 100%;
-    height: 100%;
-    margin: 0;
+html,
+body {
+  height: 100vh;
 }
+
+body {
+  margin: 0;
+  background-color: #f5f6f7;
+  color: #191b1c;
+  height: 100%;
+  overflow: hidden;
+  /*place-content: center;*/
+}
+
+#root {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
 input {
   background-color: transparent;
-  border: none !important;
 }
-textarea:focus, input:focus{
+
+textarea:focus,
+input:focus {
   outline: none;
 }
 
@@ -26,29 +47,33 @@ input[type="number"]::-webkit-outer-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+
 input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 1000px white inset !important; /* Заменяет фон */
-  -webkit-text-fill-color: #000 !important; /* Устанавливает цвет текста */
+  -webkit-box-shadow: 0 0 0 1000px white inset !important;
+  /* Заменяет фон */
+  -webkit-text-fill-color: #191b1c !important;
+  /* Устанавливает цвет текста */
 }
+
 @layer base {
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: #191b1c;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
+    --primary: 216 100% 45%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 216 10% 97%;
+    --secondary-foreground: 216 100% 45%;
+    --muted: 216 100% 97%;
     --muted-foreground: 215.4 16.3% 46.9%;
     --accent: 210 40% 96.1%;
     --accent-foreground: 222.2 47.4% 11.2%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-    --border: 0, 0%, 0%, 0.08;
+    --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 221.2 83.2% 53.3%;
     --radius: 0.5rem;
@@ -57,6 +82,14 @@ input:-webkit-autofill {
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
   .dark {
@@ -84,6 +117,14 @@ input:-webkit-autofill {
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
 
@@ -91,6 +132,7 @@ input:-webkit-autofill {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -101,4 +143,115 @@ input:-webkit-autofill {
     margin-left: 0 !important;
     margin-right: 0 !important;
   }
+}
+
+.qr-code-styles .scan-region-highlight {
+  border-radius: 30px;
+  outline: rgba(0, 0, 0, 0.65) solid 50vmax;
+}
+
+.qr-code-styles .scan-region-highlight-svg {
+  display: none;
+}
+
+.qr-code-styles .code-outline-highlight {
+  stroke: rgba(255, 255, 255, 0.5) !important;
+  stroke-width: 15 !important;
+  stroke-dasharray: none !important;
+}
+
+#drag-portal-root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.qr-code span {
+  font-size: 16px;
+  margin-top: 240px;
+  display: block;
+  text-align: center;
+  text-wrap: nowrap;
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .qr-code,
+  .qr-code * {
+    visibility: visible;
+    display: block !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .qr-code span {
+    display: block;
+    visibility: visible;
+  }
+
+  .inline-qr {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: none !important;
+  }
+
+  @page {
+    size: auto;
+    margin: 0;
+    overflow: hidden;
+  }
+}
+
+.white-space {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (min-width: 1281px) {
+  .dashboard-block {
+    max-width: calc(100% - 23.25rem);
+    min-width: 50rem;
+  }
+}
+
+.no-transform-reset {
+  transform: none !important;
+  transform-origin: initial !important;
+  translate: none !important;
+}
+
+.truncate-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  white-space: pre-line;
+  word-break: break-word;
+}
+.ptr-element {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  color: #aaa;
+  z-index: 10;
+  text-align: center;
+  height: 50px;
+  transition: all;
+}
+.rct-header,
+.rct-calendar-header,
+.rct-dateHeader {
+  border: none !important;
+  background-color: #f5f6f7;
 }
