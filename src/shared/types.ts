@@ -7,18 +7,58 @@ export type NodeDto = {
 
 export type SectionDto = {
   id: number
-  startNodeId: number
-  endNodeId: number
+  start: NodeDto
+  end: NodeDto
 }
 
 export type ExcavationDto = {
-  id: number
-  sectionIds: number[]
-  name: string
-}
+  key: number
+  value: {
+    id: number
+    sections: {
+      id: number
+      end: NodeDto
+      start: NodeDto
+    }
+    visible: boolean
+    name: string
 
+  }
+}
 export type HorizonDto = {
   id: number
-  sectionIds: number[]
+  excavations: {
+    id: number
+    name: string
+    sections: {
+      id: number
+      end: NodeDto
+      start: NodeDto
+    }[]
+    visible: boolean
+  }[]
   name: string
+}
+export type LinesType = {
+  id: number
+  points: number[][]
+}[]
+
+export type DataType = {
+  excavations: ExcavationDto[]
+  horizons: HorizonDto[]
+  nodes: {
+    key: number
+    value: NodeDto
+  }[]
+  sections: {
+    key: number
+    value: SectionDto
+  }[]
+}
+export type MineData = {
+  nodes: Map<number, Node>
+  sections: Map<number, SectionDto>
+  excavations: Map<number, ExcavationDto>
+  horizons: HorizonDto[]
 }
