@@ -1,64 +1,15 @@
-export type NodeDto = {
-  id: number
-  x: number
-  y: number
-  z: number
-}
+import {Section} from "@/entities/Section.js";
+import {Node} from "@/entities/Node.js";
+import {Excavation} from "@/entities/Excavation.js";
+import {Horizon} from "@/entities/Horizon.js";
 
-export type SectionDto = {
+export type LineType = {
   id: number
-  start: NodeDto
-  end: NodeDto
-}
-
-export type ExcavationDto = {
-  key: number
-  value: {
-    id: number
-    sections: {
-      id: number
-      end: NodeDto
-      start: NodeDto
-    }
-    visible: boolean
-    name: string
-
-  }
-}
-export type HorizonDto = {
-  id: number
-  excavations: {
-    id: number
-    name: string
-    sections: {
-      id: number
-      end: NodeDto
-      start: NodeDto
-    }[]
-    visible: boolean
-  }[]
-  name: string
-}
-export type LinesType = {
-  id: number
-  points: number[][]
-}[]
-
-export type DataType = {
-  excavations: ExcavationDto[]
-  horizons: HorizonDto[]
-  nodes: {
-    key: number
-    value: NodeDto
-  }[]
-  sections: {
-    key: number
-    value: SectionDto
-  }[]
+  points: [number, number, number][]
 }
 export type MineData = {
   nodes: Map<number, Node>
-  sections: Map<number, SectionDto>
-  excavations: Map<number, ExcavationDto>
-  horizons: HorizonDto[]
+  sections: Map<number, Section>
+  excavations: Map<number, Excavation>
+  horizons: Horizon[]
 }

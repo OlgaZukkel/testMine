@@ -7,7 +7,6 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 export default defineConfig({
   server: {
     port: 2041,
-    // allowedHosts: ['fetus.bardak.io']
   },
   plugins: [
     tsconfigPaths(),

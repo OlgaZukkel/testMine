@@ -1,4 +1,4 @@
-import React, {memo, useEffect} from 'react';
+import React, { useEffect} from 'react';
 import {MineScene} from "@/features/viewer/MineScene.js";
 import {parseXml} from "@/features/parser/parseXml.js";
 import {mineStore} from "@/app/store.js";
@@ -22,10 +22,10 @@ const App = () => {
   }, [])
 
   return (
-    <>
+    <div className='flex h-full'>
         <Menu/>
         <MineScene/>
-    </>
+    </div>
   );
 };
 

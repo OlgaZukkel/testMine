@@ -1,14 +1,21 @@
 import {observer} from "mobx-react-lite";
-import {Line} from "@react-three/drei";
 import {mineStore} from "@/app/store.js";
 
 const Lines = observer(() => {
+  const vertices = mineStore.vertices
+  if (!vertices.length) return null
   return (
-    <>
-      {mineStore.lines.map((line) => (
-        <Line key={line.id} points={line.points} color="orange"/>
-      ))}
-    </>
+    <lineSegments>
+      <bufferGeometry>
+        <bufferAttribute
+          attach="attributes-position"
+          array={vertices}
+          count={vertices.length / 3}
+          itemSize={3}
+        />
+      </bufferGeometry>
+      <lineBasicMaterial color="orange" />
+    </lineSegments>
   )
 })
 export default Lines

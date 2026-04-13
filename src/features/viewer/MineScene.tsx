@@ -6,7 +6,7 @@ import {observer} from "mobx-react-lite";
 export const MineScene = observer(() => {
 
   return (
-    <div className='w-full h-full'>
+    <div className='w-full h-full min-h-screen'>
       <Canvas
         camera={{position: [0, 0, 150]}}>
         <ambientLight/>
